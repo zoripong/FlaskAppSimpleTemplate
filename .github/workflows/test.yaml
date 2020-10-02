@@ -11,7 +11,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install dependencies
-        run:|
+        run: |
           python -m venv venv
           . venv/bin/activate
           ./scripts/install.sh
