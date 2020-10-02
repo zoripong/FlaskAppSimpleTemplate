@@ -1,0 +1,4 @@
+{
+  "debug": true,
+  "cross_origin": ["http://localhost:5959"]
+}
