@@ -21,16 +21,18 @@ jobs:
     - name: Set up virtual environment
       run: |
         python -m venv venv
-        source ./venv/bin/activate
 
     - name: Install dependencies
       run: |
+        source ./venv/bin/activate
         ./scripts/install.sh
 
     - name: Lint
       run: |
+        source ./venv/bin/activate
         ./scripts/lint.sh
 
     - name: Test with pytest
       run: |
+        source ./venv/bin/activate
         pytest tests
