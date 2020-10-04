@@ -4,8 +4,16 @@ from flask import Flask, jsonify
 
 from flask_cors import CORS
 
+from app.context import session
+
 
 def ping():
+    result = session.execute('SELECT 1').scalar()
+    assert result == 1
+    return jsonify('pong')
+
+
+def http_ping():
     return jsonify('pong')
 
 
@@ -27,5 +35,6 @@ def create_wsgi_app(config: dict) -> Flask:
 
     # set routes
     app.route('/ping/')(ping)
+    app.route('/http-ping/')(http_ping)
 
     return app
