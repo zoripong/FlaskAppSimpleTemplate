@@ -1,23 +1,31 @@
-name: lint
+name: test
 
-on: [push, pull_request]
+on: [push]
 
 jobs:
-  test:
-    name: Run tests
+  build:
+
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.8]
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    - uses: actions/checkout@v2
 
-      - name: Install dependencies
-        run: |
-          python -m venv venv
-          . venv/bin/activate
-          ./scripts/install.sh
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
 
-      - name: Run lint script
-        run: ./scripts/lint.sh
+    - name: Install dependencies
+      run: |
+        ./scripts/install.sh
 
-      - name: Run unit test
-        run: pytest tests
+    - name: Lint
+      run: |
+        ./scripts/lint.sh
+
+    - name: Test with pytest
+      run: |
+        pytest tests
